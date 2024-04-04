@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.MuiDrawer-paperAnchorBottom {
+    @apply !visible !-mt-10;
+
+    ::before {
+        @apply content-[''] w-full h-10 bg-red-600 block fixed -mt-10 top-0 left-0;
+    }
+}
+
+/* #custom-mobile-edge[aria-hidden="true"] .MuiDrawer-paperAnchorBottom {
+    @apply content-[''] !translate-y-[calc(100%_-_2.5rem)] !visible;
+} */
