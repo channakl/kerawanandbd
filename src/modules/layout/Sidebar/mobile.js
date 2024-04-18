@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { mergeClasses } from '@/helpers/className';
 import BurgerMenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
 import ArrowCloseIcon from '@mui/icons-material/NavigateBefore';
 
 
@@ -11,9 +12,7 @@ const SidebarMobile = (props) => {
     const router = useRouter();
 
     const [open, setOpen] = useState(false);
-    const handleOpenBurgerMenu = () => setOpen(true);
-    const handleCloseBurgerMenu = () => setOpen(false);
-
+    const toggleBurgerMenu = () => setOpen(!open);
     const menuIsActive = (menuUrl) => router.pathname === menuUrl;
     const renderIcon = (iconIdentifier, options = {}) => {
         const isActive = options?.active;
@@ -21,40 +20,31 @@ const SidebarMobile = (props) => {
         return <Icon size='large'/>;
     }
 
+
     return (
         <div className={mergeClasses(
-            'md:hidden',
+            'w-full md:hidden',
             'absolute left-0 top-0'
         )}>
             <div
                 className={mergeClasses(
-                    'relative left-5 top-5 z-10',
+                    'absolute right-4 top-4 z-10',
                     'bg-white rounded-full shadow-md pointer',
-                    'p-3',
+                    'flex items-center justify-center',
+                    'w-11 h-11',
                 )}
-                onClick={handleOpenBurgerMenu}
+                onClick={toggleBurgerMenu}
             >
-                <BurgerMenuIcon />
+                {open ? <CloseIcon fontSize='small' /> : <BurgerMenuIcon fontSize='small' />} 
             </div>
 
             <nav className={mergeClasses(
                 'absolute top-0 z-20',
                 'bg-white border-gray-200 border-[1px] drop-shadow-md',
-                'w-[90vw] h-screen pt-6 pb-10 px-6',
+                'w-[calc(100vw_-_44px_-_32px)] h-screen pt-6 pb-10 px-6',
                 'text-gray-500',
                 `${!open && '-translate-x-[100%] drop-shadow-none'} transition-transform !duration-500`
             )}>
-                <div
-                    className={mergeClasses(
-                        'absolute right-0 translate-x-1/2',
-                        'bg-white rounded-full drop-shadow pointer',
-                        'p-2',
-                        `${!open && 'opacity-0'}`
-                    )}
-                    onClick={handleCloseBurgerMenu}
-                >
-                    <ArrowCloseIcon size='large'/>
-                </div>
                 <h1 className={mergeClasses(
                     'font-extrabold uppercase text-teal-600 text-xl text-center',
                     'mb-10'

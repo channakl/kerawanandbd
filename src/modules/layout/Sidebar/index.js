@@ -29,7 +29,6 @@ const iconEnum = {
 const menuList = [
     { section: 'Main Menu', menus: [
         { icon: 'map', url: '/', label: 'Area kerawanan berdasarkan RW' },
-        { icon: 'case', url: '/area-kerawanan-berdasarkan-kasus', label: 'Area kerawanan berdasarkan kasus' },
     ]}, 
     { section: 'Call Center', menus: [
         { icon: 'hospital', url: '/fasilitas-kesehatan-terdekat', label: 'Fasilitas kesehatan terdekat' },
@@ -53,7 +52,7 @@ const Sidebar = () => {
     return (
         <>
             <SidebarMobile menuList={menuList} iconEnum={iconEnum} />
-            <nav className='hidden md:block h-screen bg-white w-[400px] max-w-[33vw] py-10 px-6 text-gray-500 border-gray-200 border-[1px] drop-shadow-md'>
+            <nav className='hidden md:block h-screen bg-white w-[400px] max-w-[33vw] py-10 px-6 text-gray-500 border-gray-200 border-[1px] drop-shadow-md z-50'>
                 <h1 className='mb-10 font-extrabold uppercase text-teal-600 text-2xl text-center mb-16'>ANTI-DENGUE APP</h1>
                 {menuList.map((sectionMenu) => (
                     <div className='mb-8'>
