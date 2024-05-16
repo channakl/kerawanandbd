@@ -1,0 +1,103 @@
+import { mergeClasses } from "@/helpers/className";
+import Map from "@arcgis/core/Map.js";
+import MapView from "@arcgis/core/views/MapView.js";
+import { useEffect, useRef } from "react";
+import FeatureLayer from "@arcgis/core/layers/FeatureLayer.js";
+import Graphic from "@arcgis/core/Graphic.js";
+import * as webMercatorUtils from "@arcgis/core/geometry/support/webMercatorUtils.js";
+import { Point, Polygon, SpatialReference } from "@arcgis/core/geometry";
+import sbyGeoJSON from './geojson/sby.json'
+import koordGeoJSON from './geojson/koord.json'
+
+
+const NewMap = (props) => {
+  const {
+    extendClassname = false,
+    overrideClassname = false,
+    customClassname,
+} = props;
+  const mapRef = useRef();
+  console.log(sbyGeoJSON)
+
+  useEffect(() => {
+  if (!mapRef?.current) return;
+
+  const centerPoint = new Point({
+    x: 112.79475362523111,
+    y: -7.282367554399435,
+    spatialReference: {
+        wkid: 4326
+    }
+  });
+
+  const myMap = new Map({
+    basemap: "streets-navigation-vector",
+    spatialReference: {
+      wkid: 4326
+  }
+  });
+
+  const view = new MapView({
+    map: myMap,
+    container: mapRef.current,
+    zoom: 10,
+    constraints: {
+      minZoom: 2,
+    },
+    center: webMercatorUtils.geographicToWebMercator(centerPoint),
+  });
+
+  function getRandomSize(minSize, maxSize) {
+    return Math.random() * (maxSize - minSize) + minSize;
+  }
+
+
+  const graphics = sbyGeoJSON.features.map(feature => {
+    const geometry = new Polygon({
+      rings: feature.geometry.coordinates,
+      spatialReference: new SpatialReference({ wkid: 4326 })
+    });
+
+    const graphic = new Graphic({
+      geometry: geometry,
+      attributes: feature.properties
+    });
+
+    return graphic;
+  });
+
+const featureLayer = new FeatureLayer({
+  source: graphics,
+  geometryType: "polygon",
+  objectIdField: "ID",
+  spatialReference: { wkid: 4326 },
+  renderer: {
+    type: "simple",
+    symbol: {
+      type: "simple-fill"
+    },
+    visualVariables: [{
+      type: "color",
+      field: "POPULATION",
+      legendOptions: {
+        title: "Population Density"
+      },
+      stops: [
+        { value: 0, color: "rgba(255, 0, 255, 0.5)" },
+        { value: 100, color: "rgba(255, 0, 0, 0.5)" } 
+      ],
+    }]
+  }
+});
+
+  // featureLayer.renderer = renderer;
+  myMap.add(featureLayer);
+    return () => view && view.destroy();
+  }, []);
+
+  return (
+    <div ref={mapRef} className={mergeClasses('new-map w-full h-full')} />
+  )
+}
+
+export default NewMap;
