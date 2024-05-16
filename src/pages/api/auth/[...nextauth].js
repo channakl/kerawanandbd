@@ -16,7 +16,7 @@ export const authOptions = {
   theme: {
     colorScheme: "auto", // "auto" | "dark" | "light"
     // brandColor: "#2dd4bf", // Hex color code
-    logo: "/img/hit-anti-nyamuk.jpg", // Absolute URL to image
+    // logo: "/img/hit-anti-nyamuk.jpg", // Absolute URL to image
     buttonText: "Social Login" // Hex color code
   },
 }
