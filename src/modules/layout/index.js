@@ -6,9 +6,9 @@ import Header from '@/modules/layout/Header'
 const Layout = (props) => {
     const { children, useMobileEdge, mobileEdgeContent } = props;
     return (
-        <div className='relative flex w-full'>
-            <Header />
-            <Sidebar/>
+        <div className='relative flex w-screen overflow-hidden'>
+            {/* <Header /> */}
+            <Sidebar />
             <main className='relative w-full h-screen bg-gray-100 p-10'>{children}</main>
             {/* { useMobileEdge && <MobileEdge content={mobileEdgeContent} />} */}
         </div>

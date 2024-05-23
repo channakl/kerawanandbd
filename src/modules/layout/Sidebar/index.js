@@ -52,17 +52,17 @@ const Sidebar = () => {
     return (
         <>
             <SidebarMobile menuList={menuList} iconEnum={iconEnum} />
-            <nav className='hidden md:block h-screen bg-white w-[400px] max-w-[33vw] py-10 px-6 text-gray-500 border-gray-200 border-[1px] drop-shadow-md z-50'>
+            <nav className='hidden md:block h-screen bg-white w-[375px] max-w-[33vw] py-10 px-4 text-gray-500 border-gray-200 border z-50'>
                 <h1 className='mb-10 font-extrabold uppercase text-teal-600 text-2xl text-center mb-16'>ANTI-DENGUE APP</h1>
                 {menuList.map((sectionMenu) => (
-                    <div className='mb-8'>
+                    <div className='mb-5'>
                         <h3 className='font-bold text-md uppercase mb-2'>{sectionMenu.section}</h3>
                         <div>
                             {sectionMenu.menus.map((menu) => (
                                 <Link href={menu.url}>
                                     <div className={`flex items-center py-[15px] px-4 rounded-xl gap-3 ${menuIsActive(menu.url) && 'text-white  font-semibold bg-teal-400'}`}>
                                         {renderIcon(menu.icon, { active: menuIsActive(menu.url) })}
-                                        <div className='text-[15px]'>{menu.label}</div>
+                                        <div className='text-md'>{menu.label}</div>
                                     </div>
                                 </Link>
                             ))}

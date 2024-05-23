@@ -4,6 +4,7 @@ import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 import "leaflet-defaulticon-compatibility";
 import rwGeoJson from './geojson/rw.json';
 import { VULNERABILITY_LEVELS } from '@/modules/kerawanan/helpers/constants';
+import { coordinates } from '@/modules/kerawanan/helpers/dummyData';
 import { mergeClasses } from '@/helpers/className';
 
 const MapKerawanan = (props) => {
@@ -11,6 +12,7 @@ const MapKerawanan = (props) => {
         extendClassname = false,
         overrideClassname = false,
         customClassname,
+        handleOpenInfoDrawer,
     } = props;
 
     const generateRandomColorRgb = (feature) => {
@@ -48,7 +50,7 @@ const MapKerawanan = (props) => {
                 data={rwGeoJson}
                 style={geoJSONStyle}
             />
-            {/* <Marker position={[-7.813249879910423, 112.007730855916]}>
+            {/* <Marker position={[-7.290687010969636, 112.820735318007891]}>
                 <Popup>
                     <h3 className='text-lg font-bold text-center'>RW 03</h3>
                     <div className="flex gap-2 my-2 w-full min-w-72">
@@ -66,6 +68,9 @@ const MapKerawanan = (props) => {
                     )}>Laporkan Kasus</button>
                 </Popup>
             </Marker> */}
+            { coordinates.map((coordinate) => (
+                <Marker position={[coordinate.latitude, coordinate.longitude]} eventHandlers={{ click: handleOpenInfoDrawer }} />
+            ))}
         </MapContainer>
     )
 }
