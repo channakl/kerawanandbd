@@ -4,8 +4,9 @@ import { useRouter } from 'next/router';
 import { mergeClasses } from '@/helpers/className';
 import BurgerMenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
-import { useSession, signIn, signOut } from "next-auth/react"
+import { useSession, signIn, signOut } from "next-auth/react";
 import Image from 'next/image';
+import Button from '@/components/Button';
 
 
 const SidebarMobile = (props) => {
@@ -49,32 +50,6 @@ const SidebarMobile = (props) => {
                 `${!open && '-translate-x-[100%] drop-shadow-none'} transition-transform !duration-500`
             )}>
                 <div>
-                    { session ? (
-                        <div className='mb-12 flex items-center gap-2'>
-                            <Image
-                                src={session.user.image}
-                                width={48}
-                                height={48}
-                                className="rounded-full"
-                            />
-                            <div>
-                                <span className='block'>{session.user.name}</span>
-                                <span className='block text-md text-gray-400'>{session.user.email}</span>
-                            </div>
-                        </div>
-                    ) : (
-                        <div className='mb-8 pb-8 border-b border-gray-200'>
-                            <p className='text-md text-center text-gray-400'>Experience the full features of this app by logging in</p>
-                            <button
-                                className={mergeClasses(
-                                    'w-full mt-4 p-2.5 rounded-lg',
-                                    'bg-teal-600',
-                                    'text-white text-center font-bold',
-                                )}
-                                onClick={signIn}
-                            >Login</button>
-                        </div>
-                    )}
                     <div>
                         {menuList.map((sectionMenu) => (
                             <div className='mb-8'>
@@ -93,15 +68,28 @@ const SidebarMobile = (props) => {
                         ))}
                     </div>
                 </div>
-                {session && (
-                    <button
-                        className={mergeClasses(
-                            'w-full mb-0 p-2.5 rounded-lg',
-                            'bg-teal-600',
-                            'text-white text-center font-bold',
-                        )}
-                        onClick={signOut}
-                        >Sign Out</button>
+                { session ? (
+                    <div>
+                        <div className='flex items-center gap-2'>
+                            <Image
+                                src={session.user.image}
+                                width={40}
+                                height={40}
+                                className="rounded-full"
+                            />
+                            <div>
+                                <span className='block text-md font-medium'>{session.user.name}</span>
+                                <span className='block text-[13px] text-gray-400'>{session.user.email}</span>
+                            </div>
+                        </div>
+                        <Button className={mergeClasses('!bg-red-500 hover:!bg-red-600', '!p-2.5', 'mt-4')} onClick={signOut}>Sign out</Button>
+                    </div>
+                ) : (
+                    <div>
+                        <p className='font-bold'>Sign in</p>
+                        <p className='text-md font-medium text-gray-400 mb-3'>Experience the full features of this app by signing in</p>
+                        <Button onClick={signIn}>Sign in</Button>
+                    </div>
                 )}
             </nav>
         </div>

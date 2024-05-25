@@ -2,7 +2,6 @@ import { MapContainer, TileLayer, Marker, Popup, CircleMarker, Tooltip } from 'r
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css'
 import "leaflet-defaulticon-compatibility";
-import faskesDummyData from '@/modules/faskes/dummy/faskes.json';
 
 const MapFaskes = (props) => {
     const {
@@ -10,7 +9,6 @@ const MapFaskes = (props) => {
         overrideClassname = false,
         customClassname,
     } = props;
-    const faskesList = faskesDummyData.faskes_list;
 
     return (
         <MapContainer zoom={14} center={[-7.289285399999994, 112.76611684538632]} scrollWheelZoom style={{ width: '100%', height: '100%', borderRadius: '.5rem'}}>
@@ -18,7 +16,7 @@ const MapFaskes = (props) => {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/attributions">CARTO</a>'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            {faskesList.map((faskes) => (
+            {/* {faskesList.map((faskes) => (
                 <Marker position={[faskes.latitude, faskes.longitude]}>
                    <Popup>
                     <div>
@@ -28,7 +26,7 @@ const MapFaskes = (props) => {
                     </div>
                     </Popup>
                </Marker>
-            ))}
+            ))} */}
         </MapContainer>
     )
 }

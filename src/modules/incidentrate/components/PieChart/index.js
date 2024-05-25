@@ -1,12 +1,5 @@
 import { useState } from 'react';
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
-
-// const data = [
-//   { name: 'Group A', value: 400 },
-//   { name: 'Group B', value: 300 },
-//   { name: 'Group C', value: 300 },
-//   { name: 'Group D', value: 200 },
-// ];
+import { PieChart, Pie, Sector, Cell } from 'recharts';
 
 const renderActiveShape = (props) => {
   const RADIAN = Math.PI / 180;
@@ -61,27 +54,25 @@ const CustomPieChart = ({ data }) => {
         setActiveIndex(index);
     }
     return (
-        // <ResponsiveContainer width="100%" height="100%">
-          <PieChart width={500} height={225}>
-            <Pie
-              activeIndex={activeIndex}
-              activeShape={renderActiveShape}
-              data={data}
-              cx="50%"
-              cy="50%"
-              innerRadius={60}
-              outerRadius={80}
-              dataKey="value"
-              onMouseEnter={handlePieEnter}
-            >
-            {
-                data.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry?.fill || DEFAULT_FILL} />
-                ))
-            }
-            </Pie>
-          </PieChart>
-        // </ResponsiveContainer>
+      <PieChart width={500} height={225}>
+        <Pie
+          activeIndex={activeIndex}
+          activeShape={renderActiveShape}
+          data={data}
+          cx="50%"
+          cy="50%"
+          innerRadius={60}
+          outerRadius={80}
+          dataKey="value"
+          onMouseEnter={handlePieEnter}
+        >
+        {
+            data.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={entry?.fill || DEFAULT_FILL} />
+            ))
+        }
+        </Pie>
+      </PieChart>
       );
 }
 

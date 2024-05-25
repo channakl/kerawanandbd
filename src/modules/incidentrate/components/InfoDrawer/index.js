@@ -2,8 +2,9 @@ import dynamic from 'next/dynamic';
 import { mergeClasses } from '@/helpers/className';
 import DataVisualizationBox from '@/components/DataVisualizationBox';
 import CloseIcon from '@mui/icons-material/Close';
+import Button from '@/components/Button';
 
-const PieChart = dynamic(() => import('@/modules/kerawanan/components/PieChart'), { ssr: false });
+const PieChart = dynamic(() => import('@/modules/incidentrate/components/PieChart'), { ssr: false });
 
 const DrawerInfo = (props) => {
     const { open, handleClose, data } = props;
@@ -20,13 +21,16 @@ const DrawerInfo = (props) => {
     return (
         <div className={mergeClasses(
             'absolute right-0 top-0 z-[1000]',
-            'w-[450px] h-screen py-4 px-4',
+            'w-[450px] h-screen py-5 px-4',
             'overflow-y-auto',
             'bg-white border border-gray-200',
             `${open ? '' : 'translate-x-full'} transition-transform duration-300`
           )}>
-            <div className='flex items-center justify-between'>
-                <h2 className='text-2xl font-medium'>Data Kerawanan RW 03</h2>
+            <div className='flex items-start justify-between'>
+                <div>
+                  <h2 className='text-2xl font-medium'>Data Kerawanan RW 03</h2>
+                  <p className='text-md text-gray-400'>Keputih, Kec. Sukolilo, Surabaya, Jawa Timur 60111</p>
+                </div>
                 <CloseIcon className="cursor-pointer" onClick={handleClose}/>
             </div>
             <div>
@@ -34,7 +38,7 @@ const DrawerInfo = (props) => {
                 color="teal-500"
                 title="Total Kasus"
                 titleColor="white"
-                className="mt-4"
+                className="mt-5"
               >
                 <h4 className={mergeClasses(
                   'text-white text-4xl font-bold',
@@ -113,14 +117,7 @@ const DrawerInfo = (props) => {
                 </DataVisualizationBox>
               </div>
             </div>
-            <button className={mergeClasses(
-                'bg-red-600',
-                'w-full mt-8 p-3 rounded-lg',
-                'text-md text-white font-medium',
-                'hover:bg-red-700'
-            )}>
-                Report Kasus Baru
-            </button>
+            <Button className={mergeClasses('!bg-red-600 hover:!bg-red-700', 'mt-8')}>Report Kasus Baru</Button>
         </div>
     );
 }
