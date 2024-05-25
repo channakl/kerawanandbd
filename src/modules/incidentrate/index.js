@@ -30,9 +30,9 @@ const InformasiDbdPage = () => {
     const color = vulnerabilityLevelColors[randomIndex];
     return {
         fillColor: color,
-        color: '#777',
+        color: '#FFF',
         weight: 1,
-        fillOpacity: 0.3,
+        fillOpacity: 0.55,
     };
   };
 
@@ -42,16 +42,16 @@ const InformasiDbdPage = () => {
         const layer = e.target;
         layer.setStyle({
           weight: 2,
-          color: '#444',
-          fillOpacity: 0.5,
+          color: '#FFF',
+          fillOpacity: 0.9,
         });
       },
       mouseout: (e) => {
         const layer = e.target;
         layer.setStyle({
+          color: '#FFF',
           weight: 1,
-          color: '#777',
-          fillOpacity: 0.3,
+          fillOpacity: 0.55,
         });
       },
       click: handleOpenInfoDrawer,

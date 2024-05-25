@@ -68,7 +68,7 @@ const Sidebar = () => {
                     <h1 className='mb-10 font-extrabold uppercase text-teal-600 text-2xl text-center mb-12'>ANTI-DENGUE APP</h1>
                     {menuList.map((sectionMenu) => (
                         <div className='mb-5'>
-                            <h3 className='font-bold text-md uppercase mb-2'>{sectionMenu.section}</h3>
+                            <h3 className='font-bold text-md uppercase mb-1.5'>{sectionMenu.section}</h3>
                             <div>
                                 {sectionMenu.menus.map((menu) => (
                                     <Link href={menu.url}>

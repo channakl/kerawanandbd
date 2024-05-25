@@ -16,9 +16,10 @@ const InformasiDbdPage = () => {
     const vulnerabilityLevelColors = vulnerabilityLevelKeys.map((key) => VULNERABILITY_LEVELS[key].COLOR);
     const color = vulnerabilityLevelColors[randomIndex];
     return {
-        fillColor: color,
-        color: '#444',
-        weight: 2
+      fillColor: color,
+      color: '#FFF',
+      weight: 1,
+      fillOpacity: 0.55,
     };
 };
   return (
