@@ -54,7 +54,7 @@ const NotificationBar = () => {
                 'bg-white rounded-xl',
                 'border border-r-8',
                 'text-md break-words whitespace-normal',
-                notificationBarAttribs.open && '!block -translate-y-6 !transition-all !duration-100',
+                notificationBarAttribs.open && '!block -translate-y-8 !transition-all !duration-100',
                 CLASSNAME_BY_TYPE[notificationBarAttribs.type]
             )}>{notificationBarAttribs.message}</div>
         </>
