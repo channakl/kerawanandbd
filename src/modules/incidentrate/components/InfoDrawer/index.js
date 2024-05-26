@@ -248,7 +248,7 @@ const DrawerInfo = (props) => {
     return (
         <div className={mergeClasses(
             'absolute right-0 top-0 z-[1000]',
-            'w-[450px] h-screen py-5 px-4',
+            'w-[425px] h-screen py-5 px-4',
             'overflow-y-auto',
             'bg-white border border-gray-200',
             `${open ? '' : 'translate-x-full'} transition-transform duration-300`

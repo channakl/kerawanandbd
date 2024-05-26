@@ -63,7 +63,7 @@ const Sidebar = () => {
     return (
         <>
             <SidebarMobile menuList={menuList} iconEnum={iconEnum} />
-            <nav className='hidden md:flex h-screen bg-white w-[380px] max-w-[33vw] pt-10 pb-4 px-4 text-gray-500 border-gray-200 border z-50 flex-col justify-between'>
+            <nav className='hidden md:flex h-screen bg-white w-[390px] max-w-[33vw] pt-10 pb-4 px-4 text-gray-500 border-gray-200 border z-50 flex-col justify-between'>
                 <div>
                     <h1 className='mb-10 font-extrabold uppercase text-teal-600 text-2xl text-center mb-12'>ANTI-DENGUE APP</h1>
                     {menuList.map((sectionMenu) => (
