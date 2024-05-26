@@ -49,12 +49,12 @@ const NotificationBar = () => {
         <>
             <div className={mergeClasses(
                 'notification-bar',
-                'absolute z-[9999] -bottom-0 left-1/2 translate-y-full -translate-x-1/2',
+                'absolute z-[9999] bottom-0 left-1/2 translate-y-full -translate-x-1/2',
                 'w-[480px] max-w-[90vw] py-4 px-6',
                 'bg-white rounded-xl',
                 'border border-r-8',
                 'text-md break-words whitespace-normal',
-                notificationBarAttribs.open && '!block -translate-y-8 !transition-all !duration-100',
+                notificationBarAttribs.open && '!block !-translate-y-6 !transition-all !duration-100',
                 CLASSNAME_BY_TYPE[notificationBarAttribs.type]
             )}>{notificationBarAttribs.message}</div>
         </>
