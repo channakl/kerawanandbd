@@ -1,7 +1,7 @@
 import { mergeClasses } from "@/helpers/className";
 
 const Button = (props) => {
-    const { children, className: customClassName, onClick } = props;
+    const { type, children, className: customClassName, onClick } = props;
     return (
         <button
             className={mergeClasses(
@@ -11,6 +11,8 @@ const Button = (props) => {
                 customClassName
             )}
             onClick={onClick}
+            type={type}
+            {...(type === 'submit' && { value: 'submit' })}            
         >{children}</button>
     )
 }
