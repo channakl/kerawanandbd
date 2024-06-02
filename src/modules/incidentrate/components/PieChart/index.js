@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PieChart, Pie, Sector, Cell } from 'recharts';
 
 const renderActiveShape = (props) => {
@@ -49,10 +49,15 @@ const renderActiveShape = (props) => {
 
 const CustomPieChart = ({ data }) => {
     const DEFAULT_FILL = '#14B8A6';
-    const [activeIndex, setActiveIndex] = useState(0);
+    const DEFAULT_ACTIVE_INDEX = data.findIndex((item) => item.value !== 0);
+    const [activeIndex, setActiveIndex] = useState(DEFAULT_ACTIVE_INDEX);
     const handlePieEnter = (_, index) => {
         setActiveIndex(index);
     }
+
+    useEffect(() => {
+      console.log(data);
+    }, [data]);
     return (
       <PieChart width={500} height={225}>
         <Pie

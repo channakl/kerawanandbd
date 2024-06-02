@@ -14,7 +14,7 @@ const Input = forwardRef((props, ref) => {
                 className={mergeClasses(
                     'w-full mt-1 py-3 px-5',
                     'rounded-xl',
-                    'bg-gray-100 border border-gray-300',
+                    'bg-[#F6F7F9] border border-gray-300',
                     'outline-teal-500',
                     'text-md',
                     disabled && 'text-gray-400 cursor-not-allowed',

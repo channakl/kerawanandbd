@@ -37,7 +37,7 @@ const iconEnum = {
 
 const menuList = [
     { section: 'Main Menu', menus: [
-        { icon: 'map', url: '/', label: 'Area Kerawanan Berdasarkan RW' },
+        // { icon: 'map', url: '/', label: 'Area Kerawanan Berdasarkan RW' },
         { icon: 'danger', url: '/incident-rate', label: 'Incident Rate' },
     ]}, 
     { section: 'Call Center', menus: [

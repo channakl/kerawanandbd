@@ -3,6 +3,8 @@ import Sidebar from '@/modules/layout/Sidebar';
 import MobileEdge from '@/modules/layout/MobileEdge';
 import Header from '@/modules/layout/Header'
 import NotificationBar from '@/modules/layout/NotificationBar';
+import Loader from '@/modules/layout/Loader';
+import dynamic from 'next/dynamic';
 
 const Layout = (props) => {
     const { children, useMobileEdge, mobileEdgeContent } = props;
@@ -12,9 +14,12 @@ const Layout = (props) => {
             <div className='relative flex w-screen overflow-hidden'>
                 {/* <Header /> */}
                 <Sidebar />
-                <main className='relative w-full h-screen bg-gray-100 p-10'>{children}</main>
+                <main className='relative w-full h-screen bg-gray-100 p-10'>
+                    {children}
+                    <Loader global />
+                </main>
                 {/* { useMobileEdge && <MobileEdge content={mobileEdgeContent} />} */}
-            <NotificationBar />
+                <NotificationBar />
             </div>
         </div>
     );

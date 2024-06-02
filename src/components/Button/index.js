@@ -8,6 +8,7 @@ const Button = (props) => {
                 'bg-teal-500 hover:bg-teal-600',
                 'w-full p-3 rounded-lg',
                 'text-md text-white font-medium',
+                'cursor-pointer',
                 customClassName
             )}
             onClick={onClick}
