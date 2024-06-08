@@ -103,7 +103,7 @@ const Sidebar = () => {
                         <div>
                             <p className='font-bold'>Sign in</p>
                             <p className='text-md font-medium text-gray-400 mb-3'>Experience the full features of this app by signing in</p>
-                            <Button onClick={signIn}>Sign in</Button>
+                            <Button onClick={() => signIn('google')}>Sign in</Button>
                         </div>
                     )}
                 </div>
