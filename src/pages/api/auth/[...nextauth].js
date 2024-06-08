@@ -13,6 +13,7 @@ export const authOptions = {
         clientSecret: process.env.DISCORD_CLIENT_SECRET
       })
   ],
+  secret: process.env.NEXTAUTH_SECRET,
   theme: {
     colorScheme: "auto", // "auto" | "dark" | "light"
     // brandColor: "#2dd4bf", // Hex color code
