@@ -6,6 +6,7 @@ import rwGeoJson from '@/components/Map/geojson/rw.json';
 import { VULNERABILITY_LEVELS } from '@/modules/incidentrate/helpers/constants';
 import { useFetchingDocs } from '@/hooks/useFetchingDocs';
 import useCollectionCount from '@/hooks/useCollectionCount';
+import { classifyPopulationDensity, discretize } from '@/modules/incidentrate/helpers/calculation';
 
 const Map = dynamic(() => import('@/components/Map'), { ssr: false });
 
@@ -70,63 +71,22 @@ const InformasiDbdPage = () => {
     }
   }, [loading]);
 
-  const calculateMetricScoring = (metricValue, lowestMetricValue, highestMetricValue, debug = false) => {
-    let classScoring;
-    const interval = (highestMetricValue - lowestMetricValue) / 3;
-    const classOneConditionFullfiled = (lowestMetricValue <= metricValue) && (metricValue <= interval);
-    const classTwoConditionFullfiled = (interval <= metricValue) && (metricValue <= (2 * interval));
-    const classThreeConditionFullfiled = ((2 * interval) <= metricValue) && (metricValue <= highestMetricValue); 
-    
-    if (classOneConditionFullfiled) classScoring = 1
-    else if (classTwoConditionFullfiled) classScoring = 2
-    else if (classThreeConditionFullfiled) classScoring = 3
-    if (debug) {
-      console.log({
-        interval,
-        metricValue,
-        lowestMetricValue,
-        highestMetricValue,
-        classOneConditionFullfiled,
-        classTwoConditionFullfiled,
-        classThreeConditionFullfiled
-      })
-    }
-    return classScoring;
-  };
-
-  const calculateFinalScoring = (metrics = {}) => {
-    const { totalCase, healthcareDist, larvaePercentage, populationDensity } = metrics;
-
-    const totalCaseScoring = calculateMetricScoring(totalCase.value, totalCase.lowestValue, totalCase.highestValue);
-    const healthcareDistScoring = calculateMetricScoring(healthcareDist.value, healthcareDist.lowestValue, healthcareDist.highestValue);
-    const larvaePercentageScoring = calculateMetricScoring(larvaePercentage.value, larvaePercentage.lowestValue, larvaePercentage.highestValue);
-    const populationDensityScoring = calculateMetricScoring(populationDensity.value, populationDensity.lowestValue, populationDensity.highestValue);
-    const finalScoring = totalCaseScoring + healthcareDistScoring + larvaePercentageScoring + populationDensityScoring;
-    return finalScoring;
-  };
-
   const calculateRiskLevel = (rwId, rwScoringList) => {
-    let riskLevel;
     const scoringList = rwScoringList.map((rw) => rw.score);
     const currentRwScore = rwScoringList.find((rw) => rw.rw === rwId).score;
     const lowestRwScore = Math.min(...scoringList);
     const highestRwScore = Math.max(...scoringList);
-
-    const interval = (highestRwScore - lowestRwScore) / 3;
-    const classOneConditionFullfiled = (lowestRwScore <= currentRwScore) && (currentRwScore <= lowestRwScore + interval);
-    const classTwoConditionFullfiled = (lowestRwScore + interval < currentRwScore) && (currentRwScore <= lowestRwScore + 2 * interval);
-    const classThreeConditionFullfiled = (lowestRwScore + 2 * interval < currentRwScore) && (currentRwScore <= highestRwScore); 
+    const riskLevel = discretize({
+      value: currentRwScore,
+      lowestValue: lowestRwScore,
+      highestValue: highestRwScore
+    });
     
-    if (classOneConditionFullfiled) riskLevel = 1
-    else if (classTwoConditionFullfiled) riskLevel = 2
-    else if (classThreeConditionFullfiled) riskLevel = 3
-    
-    // const riskLevel = calculateMetricScoring(currentRwScore, lowestRwScore, highestRwScore, true);
     return riskLevel;
   };
 
   useEffect(() => {
-    const getMetric = (rwList, rwId, fieldGetter = () => {}) => {
+    const getMetricRange = (rwList, rwId, fieldGetter = () => {}) => {
       const currentRw = rwList.find((rw) => rw.id === rwId);
       const value = fieldGetter(currentRw);
       const valueList = rwList.map(fieldGetter);
@@ -135,6 +95,7 @@ const InformasiDbdPage = () => {
 
       return { value, lowestValue, highestValue };
     };
+
     if (listDataRw) {
         const fetchAllCounts = async () => {
             try {
@@ -150,28 +111,21 @@ const InformasiDbdPage = () => {
                   const dataRW = listDataRw.find((rw) => rw.id === result.id);
                   const mergedRiskData = { ...dataRW, report_count: result.count + dataRW.initial_reports.total };
                   return mergedRiskData;
-                  // const riskScoring = calculateFinalScoring({
-                    //   totalCase: totalCaseMetric,
-                    //   healthcareDist: healthcareDistMetric,
-                    //   larvaePercentage: larvaePercentageMetric,
-                    //   populationDensity: populationDensityMetric 
-                  // })
-                  
-                  // console.log(result.id, riskScoring);
                 });
                 
                 const scoringList = riskDataList.map((rwRiskData) => {
-                  const totalCaseMetric = getMetric(riskDataList, rwRiskData.id, (rw) => rw.report_count);
-                  const healthcareDistMetric = getMetric(riskDataList, rwRiskData.id, (rw) => rw.initial_reports.healthcare_dist);
-                  const larvaePercentageMetric = getMetric(riskDataList, rwRiskData.id, (rw) => rw.initial_reports.larvae_percentage);
-                  const populationDensityMetric = getMetric(riskDataList, rwRiskData.id, (rw) => rw.initial_reports.population_density);
-                  const riskScoring = calculateFinalScoring({
-                    totalCase: totalCaseMetric,
-                    healthcareDist: healthcareDistMetric,
-                    larvaePercentage: larvaePercentageMetric,
-                    populationDensity: populationDensityMetric,
-                  })
-                  return { rw: rwRiskData.id, score: riskScoring };
+                  const totalCaseMetricRange = getMetricRange(riskDataList, rwRiskData.id, (rw) => rw.report_count);
+                  const healthcareDistMetricRange = getMetricRange(riskDataList, rwRiskData.id, (rw) => rw.initial_reports.healthcare_dist);
+                  const larvaePercentageMetricRange = getMetricRange(riskDataList, rwRiskData.id, (rw) => rw.initial_reports.larvae_percentage);
+                  const populationDensityValue = rwRiskData.initial_reports.population_density;
+
+                  const totalCaseClass = discretize(totalCaseMetricRange);
+                  const healthcareDistClass = discretize(healthcareDistMetricRange);
+                  const larvaePercentageClass = discretize(larvaePercentageMetricRange, { reverse: true });
+                  const populationDensityClass = classifyPopulationDensity(populationDensityValue);
+
+                  const finalScoring = totalCaseClass + healthcareDistClass + larvaePercentageClass + populationDensityClass;
+                  return { rw: rwRiskData.id, score: finalScoring };
                 })
                 
                 const riskLevelList = scoringList.map((rwScoring) => ({
@@ -227,6 +181,7 @@ const InformasiDbdPage = () => {
             geoJsonStyle={generateGeoJsonStyle}
             data={listDataRw}
             onFeatureClick={handleClickRw}
+            onFeatureTouchStart={handleClickRw}
             onFeatureMouseOver={handleMouseOverRw}
             onFeatureMouseOut={handleMouseOutRW}
           />

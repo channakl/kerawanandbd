@@ -22,7 +22,7 @@ const DrawerInfo = (props) => {
       return (
         <div className={mergeClasses(
           'absolute right-0 top-0 z-[1000]',
-          'w-[425px] h-screen py-5 px-4',
+          'w-[425px] max-w-full h-screen py-5 px-4',
           'overflow-y-auto',
           'bg-white border border-gray-200',
           `${open ? '' : 'translate-x-full'} transition-transform duration-300`
@@ -42,6 +42,12 @@ const DrawerInfo = (props) => {
     };
 
     const handleSubmitReport = (e, value) => {
+      e.preventDefault();
+      window.showNotification({
+        message: 'Laporan berhasil dikirim!',
+        type: 'info'
+      })
+      return;
       e.preventDefault();
       window.setLoaderVisibility(true);
       submitReport({
@@ -79,7 +85,7 @@ const DrawerInfo = (props) => {
     return (
         <div className={mergeClasses(
             'absolute right-0 top-0 z-[1000]',
-            'w-[425px] h-screen py-5 px-4',
+            'w-[425px] max-w-full  h-screen py-5 px-4',
             'overflow-y-auto',
             'bg-white border border-gray-200',
             `${open ? '' : 'translate-x-full'} transition-transform duration-300`

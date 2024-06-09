@@ -5,8 +5,8 @@ import "leaflet-defaulticon-compatibility";
 
 const Map = (props) => {
     const {
-        children, geoJson, geoJsonStyle, onEachGeoJsonFeature,
-        onFeatureClick, onFeatureMouseOver, onFeatureMouseOut
+        children, geoJson, geoJsonStyle,
+        onFeatureClick, onFeatureMouseOver, onFeatureMouseOut, onFeatureTouchStart
     } = props;
 
     const handleFeatureEvent = (feature, layer) => {
@@ -14,6 +14,7 @@ const Map = (props) => {
             click: onFeatureClick,
             mouseout: onFeatureMouseOut,
             mouseover: onFeatureMouseOver,
+            touchstart: onFeatureTouchStart,
         });
     };
 

@@ -196,7 +196,7 @@ const StatisticsContent = (props) => {
       {/* Larvae */}
       <div className={mergeClasses('mt-6', 'statistic-by-age')}>
         <h3 className='uppercase text-gray-400 text-md font-medium'>Jentik Nyamuk</h3>
-        <DataVisualizationBox title="Statistik Mingguan" className="mt-2">
+        <DataVisualizationBox title="Statistik Mingguan" className="mt-2 overflow-x-auto">
           <LineChart data={lineChartDataLarvae}/>
         </DataVisualizationBox>
       </div>

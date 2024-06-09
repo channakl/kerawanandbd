@@ -5,9 +5,6 @@ import Image from "next/image";
 
 const Headers = (props) => {
     const { data: session } = useSession();
-    if (session) {
-        console.log(session)
-    }
     return (
         <header className={mergeClasses(
             'fixed top-0 z-50',

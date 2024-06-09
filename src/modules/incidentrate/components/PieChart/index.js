@@ -55,9 +55,6 @@ const CustomPieChart = ({ data }) => {
         setActiveIndex(index);
     }
 
-    useEffect(() => {
-      console.log(data);
-    }, [data]);
     return (
       <PieChart width={500} height={225}>
         <Pie
