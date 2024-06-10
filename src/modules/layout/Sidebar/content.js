@@ -62,7 +62,7 @@ const SidebarContent = () => {
         <>
             <div>
                 <h1 className='mb-10 font-bold text-teal-600 text-xl text-center mb-12'>
-                    Aplikasi Pemetaan Kerawanan DBD
+                    Menur Radar
                 </h1>
                 {menuList.map((sectionMenu) => (
                     <div className='mb-5'>

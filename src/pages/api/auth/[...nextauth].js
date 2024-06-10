@@ -17,7 +17,9 @@ export const authOptions = {
     }),
     FacebookProvider({
       clientId: process.env.FACEBOOK_CLIENT_ID,
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+      scope: 'email',
+      profileFields: ['id', 'name', 'email', 'picture']
     })
   ],
   secret: process.env.NEXTAUTH_SECRET,

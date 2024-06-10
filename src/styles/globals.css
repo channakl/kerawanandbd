@@ -32,6 +32,20 @@ body {
   }
 }
 
-.esri-ui.calcite-mode-light {
-  /* @apply absolute !left-4 !top-4 w-fit h-fit p-4 bg-white shadow-md rounded-lg !hidden; */
+
+.leaflet-control-layers-list {
+  @apply !py-2 !px-4;
+}
+
+.leaflet-control-layers-base label {
+  @apply !text-[15px] !font-medium;
+}
+
+input.leaflet-control-layers-selector {
+  @apply mr-1;
+}
+
+.leaflet-control-zoom a.leaflet-control-zoom-in,
+.leaflet-control-zoom a.leaflet-control-zoom-out {
+  @apply !w-[42px] !h-[42px] !leading-[42px];
 }
