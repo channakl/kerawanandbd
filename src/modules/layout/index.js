@@ -5,14 +5,17 @@ import Header from '@/modules/layout/Header'
 import NotificationBar from '@/modules/layout/NotificationBar';
 import Loader from '@/modules/layout/Loader';
 import dynamic from 'next/dynamic';
+import Head from 'next/head';
 
 const Layout = (props) => {
-    const { children, useMobileEdge, mobileEdgeContent } = props;
+    const { children, title = "Aplikasi Pemetaan Kerawanan DBD", useMobileEdge, mobileEdgeContent } = props;
     
     return (
         <div>
             <div className='relative flex w-screen overflow-hidden'>
-                {/* <Header /> */}
+                <Head>
+                    <title>{title}</title>
+                </Head>
                 <Sidebar />
                 <main className='relative w-full h-screen bg-gray-100 p-10'>
                     {children}

@@ -64,8 +64,7 @@ const Map = (props) => {
             zoom={15}
             zoomControl={false}
             scrollWheelZoom
-            center={[-7.29705665224, 112.770197762]}
-            // whenCreated={(mapInstance) => { mapRef.current = mapInstance; }}
+            center={[-7.293554425432647, 112.76751232951082]}
             style={{ width: '100%', height: '100%', borderRadius: '.5rem' }}
         >
             <ZoomControl position={controlPosition.zoom} />
