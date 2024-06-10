@@ -1,7 +1,7 @@
 import Button from "@/components/Button";
 import { mergeClasses } from "@/helpers/className";
 import { FACEBOOK, GOOGLE } from '@/modules/login/helpers/constants';
-import { signIn, getSession } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import Image from "next/image";
 
 const enumSocialLogin = {
@@ -24,7 +24,7 @@ const Login = (props) => {
             'flex items-center justify-center',
             'bg-gray-200 ',
             // 'bg-gradient-to-r from-gray-200 to-neutral-200'
-            'after:content-[""] after:bg-[url("/img/login-background.png")] after:absolute after:w-screen after:h-screen after:z-[1] after:blur-[3px]'
+            'after:content-[""] after:bg-[url("/img/login-background.webp")] after:absolute after:w-screen after:h-screen after:z-[1] after:blur-[3px]'
         )}>
                 {/* <svg className="absolute w-[600px] top-0 right-0 -translate-y-1/4 translate-x-1/3" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
                 <path fill="#00897b88" d="M40.5,-47.3C47.6,-33.3,45.3,-16.7,44.4,-0.9C43.6,15,44.2,29.9,37.1,39.6C29.9,49.2,15,53.6,2.6,51C-9.7,48.3,-19.4,38.7,-33.8,29.1C-48.1,19.4,-67.1,9.7,-72.8,-5.7C-78.4,-21.1,-70.8,-42.1,-56.5,-56.1C-42.1,-70,-21.1,-76.9,-2.2,-74.7C16.7,-72.5,33.3,-61.2,40.5,-47.3Z" transform="translate(100 100)" />
