@@ -80,7 +80,7 @@ const StatisticsContent = (props) => {
     }
   }, [reportsData]);  
   
-  if (!fields) return <p>Loading...</p>
+  if (!fields) return null;
   
   const lineChartDataLarvae = larvaeData && larvaeData.length > 0
     ? larvaeData

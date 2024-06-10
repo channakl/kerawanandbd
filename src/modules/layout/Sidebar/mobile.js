@@ -1,29 +1,13 @@
 import { useState } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { mergeClasses } from '@/helpers/className';
 import BurgerMenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
-import { useSession, signIn, signOut } from "next-auth/react";
 import SidebarContent from './content';
-import Image from 'next/image';
-import Button from '@/components/Button';
-
 
 const SidebarMobile = (props) => {
-    const { menuList, iconEnum } = props;
-    const router = useRouter();
-    const { data: session } = useSession();
 
     const [open, setOpen] = useState(false);
     const toggleBurgerMenu = () => setOpen(!open);
-    const menuIsActive = (menuUrl) => router.pathname === menuUrl;
-    const renderIcon = (iconIdentifier, options = {}) => {
-        const isActive = options?.active;
-        const Icon = isActive ? iconEnum.active[iconIdentifier] : iconEnum.inactive[iconIdentifier];
-        return <Icon size='large'/>;
-    }
-
 
     return (
         <div className={mergeClasses(
