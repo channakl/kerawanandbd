@@ -15,6 +15,7 @@ const Layout = (props) => {
             <div className='relative flex w-screen overflow-hidden'>
                 <Head>
                     <title>{title}</title>
+                    <link rel="icon" href="/favicon.svg" sizes="any" />
                 </Head>
                 <Sidebar />
                 <main className='relative w-full h-screen bg-gray-100 p-10'>

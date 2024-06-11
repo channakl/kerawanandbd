@@ -61,7 +61,7 @@ const SidebarContent = () => {
     return (
         <>
             <div>
-                <h1 className='mb-10 font-bold text-teal-600 text-xl text-center mb-12'>
+                <h1 className='mb-10 font-bold text-teal-600 text-xl text-center'>
                     Menur Radar
                 </h1>
                 {menuList.map((sectionMenu) => (
