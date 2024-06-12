@@ -11,29 +11,32 @@ const dummy_articles = [
 
 const InformasiDbdPage = () => {
     return (
-        <Layout>
+        <Layout overflow>
             <h1 className={mergeClasses(
                 'text-3xl font-bold text-gray-800',
                 'mb-4',
             )}>Informasi Seputar DBD</h1>
 
             <div class={mergeClasses(
-                'grid gap-4 grid-cols-2 min-[1200px]:grid-cols-3 min-[1520px]:grid-cols-4'
+                'sm:grid sm:grid-cols-2 sm:gap-3',
+                'xl:grid-cols-3 xl:gap-4',
+                '2xl:grid-cols-4'
+
             )}>
                 {dummy_articles.map((article) => (
-                    <div class="blog-card cursor-pointer col-span-1 bg-white border border-gray-200 rounded-md drop-shadow-sm overflow-hidden">
-                        <div className='relative w-full pt-[50%]'>
+                    <div class="blog-card group mb-3 sm:mb-0 cursor-pointer col-span-1 bg-white border border-gray-200 rounded-md drop-shadow-sm overflow-hidden">
+                        <div className='relative w-full pt-[50%] overflow-hidden'>
                             <Image
                                 src={article.img_src}
                                 width={400}
                                 height={267}
-                                class="absolute top-0 left-0 w-full h-full object-cover"
+                                class="absolute group-hover:scale-[1.05] duration-300 transition-transform top-0 left-0 w-full h-full object-cover"
                             />
                         </div>
                         <div className='h-full p-6 pt-4 relative'>
                             <span className='mt-auto inline-block text-sm text-gray-400'>Dipublikasikan {article.published_date}</span>
                             <h2 class="text-xl text-gray-800 font-semibold leading-6">{article.title}</h2>
-                            <p class="mt-4 text-gray-800 text-md line-clamp-3">{article.description}</p>
+                            <p class="mt-2 text-gray-800 text-md line-clamp-3">{article.description}</p>
                         </div>
                     </div>
                 ))}

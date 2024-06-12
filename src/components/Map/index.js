@@ -62,15 +62,15 @@ const Map = (props) => {
     return (
         <MapContainer
             zoom={15}
-            zoomControl={false}
-            scrollWheelZoom
+            zoomControl
+            scrollWheelZoom            
             center={[-7.293554425432647, 112.76751232951082]}
             style={{ width: '100%', height: '100%', borderRadius: '.5rem' }}
         >
             <ZoomControl position={controlPosition.zoom} />
             <LayerChangeHandler />
             <LayersControl position={controlPosition.tileLayer}>
-                <BaseLayer checked={selectedTile === 'Default'} name="Default">
+                <BaseLayer checked={selectedTile === 'Default' || selectedTile !== 'Satellite'} name="Default">
                     <TileLayer
                         attribution='&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url={`https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png?api_key=${process.env.STADIAMAPS_API_KEY}`}

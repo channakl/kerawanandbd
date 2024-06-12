@@ -34,7 +34,7 @@ body {
 
 
 .leaflet-control-layers-list {
-  @apply !py-2 !px-4;
+  @apply !py-1.5 !px-2;
 }
 
 .leaflet-control-layers-base label {
@@ -48,4 +48,8 @@ input.leaflet-control-layers-selector {
 .leaflet-control-zoom a.leaflet-control-zoom-in,
 .leaflet-control-zoom a.leaflet-control-zoom-out {
   @apply !w-[42px] !h-[42px] !leading-[42px];
+}
+
+.leaflet-control-container .leaflet-top.leaflet-left > .leaflet-control-zoom:first-child {
+  @apply hidden;
 }
