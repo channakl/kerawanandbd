@@ -67,9 +67,8 @@ const InformasiDbd = () => {
                         <div className='relative w-full pt-[50%] overflow-hidden'>
                             <Image
                                 src={blog?.image_src || '/img/placeholder.webp'}
-                                width={400}
-                                height={267}
                                 class="absolute group-hover:scale-[1.05] duration-300 transition-transform top-0 left-0 w-full h-full object-cover"
+                                fill
                             />
                         </div>
                         <div className='h-full p-6 pt-4 relative'>
