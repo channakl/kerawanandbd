@@ -10,7 +10,11 @@ import { classifyPopulationDensity, discretize } from '@/modules/incidentrate/he
 
 const Map = dynamic(() => import('@/components/Map'), { ssr: false });
 
-const InformasiDbdPage = () => {
+const IncidentRate = () => {
+  const propsLayout = {
+    title: 'Incident Rate'
+  };
+
   const [sideInfoOpen, setSideInfoOpen] = useState(false);
   const [sideInfoData, setSideInfoData] = useState();
   const [loading, setLoading] = useState(true);
@@ -22,9 +26,6 @@ const InformasiDbdPage = () => {
   });
 
   const [fetchCount] = useCollectionCount({ lazyFetch: true });
-  const layoutProps = {
-    useMobileEdge: true
-  };
 
   const generateGeoJsonStyle = (feature) => {
     const correspondRwData = listDataRw.find((rw) => feature.properties.Nama === `RW ${rw.number}`);
@@ -41,10 +42,6 @@ const InformasiDbdPage = () => {
         color = VULNERABILITY_LEVELS.HIGH.COLOR;
         break;
     }
-    // const randomIndex = Math.floor(Math.random() * 3);
-    // const vulnerabilityLevelKeys = Object.keys(VULNERABILITY_LEVELS)
-    // const vulnerabilityLevelColors = vulnerabilityLevelKeys.map((key) => VULNERABILITY_LEVELS[key].COLOR);
-    // const color = vulnerabilityLevelColors[randomIndex];
     return {
         fillColor: color,
         color: '#FFF',
@@ -172,7 +169,7 @@ const InformasiDbdPage = () => {
   };
 
   return (
-    <Layout {...layoutProps} >
+    <Layout {...propsLayout} >
         <div className='w-full h-screen absolute top-0 left-0 z-[1]'>
         {loading ? <Map />
         : (
@@ -195,4 +192,4 @@ const InformasiDbdPage = () => {
   )
 }
 
-export default InformasiDbdPage;
+export default IncidentRate;

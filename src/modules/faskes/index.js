@@ -15,13 +15,10 @@ const Faskes = () => {
     const { data: faskesList, loading, error } = useFetchingDocs({
         collection: 'faskes'
     });
-    useEffect(() => {
-        // if (loading) {
-        //     window.setLoaderVisibility(true);
-        // } else {
-        //     window.setLoaderVisibility(false);
-        // }
-    }, [loading]);
+
+    const propsLayout = {
+        title: 'Fasilitas Kesehatan Terdekat'
+    };
 
     useEffect(() => {
         if (error) {
@@ -34,7 +31,7 @@ const Faskes = () => {
     }, [error]);
 
     return (
-        <Layout>
+        <Layout {...propsLayout} >
             <div className='w-full h-screen absolute top-0 left-0 z-[1]'>
                 <Map>
                     {faskesList && faskesList.map((faskes) => (
