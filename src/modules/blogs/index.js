@@ -46,7 +46,7 @@ const InformasiDbd = () => {
                     //     </div>
                     //     </div>
                     // </div>
-                    <div>
+                    <div className="bg-white border border-gray-200 rounded-lg drop-shadow-sm overflow-hidden pb-6">
                         <Skeleton width="100%" variant="rectangular" className='pt-[50%]'/>
                         <div className='px-5'>
                         <Skeleton type="text" className="mt-5" width="30%" height={15}/>
@@ -57,7 +57,7 @@ const InformasiDbd = () => {
                             <Skeleton type="text" width="92%" height={20}/>
                         </div>
                         <div className="mt-4">
-                            <Skeleton className="ml-auto" type="text" width="35%" height={20}/>
+                            <Skeleton className="ml-auto" type="text" width="30%" height={20}/>
                         </div>
                         </div>
                     </div>
