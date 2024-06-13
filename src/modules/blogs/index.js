@@ -46,7 +46,7 @@ const InformasiDbd = () => {
                     //     </div>
                     //     </div>
                     // </div>
-                    <div className="bg-white border border-gray-200 rounded-lg drop-shadow-sm overflow-hidden pb-6">
+                    <div className="bg-white border border-gray-200 rounded-lg drop-shadow-sm overflow-hidden pb-6 mb-3 sm:mb-0">
                         <Skeleton width="100%" variant="rectangular" className='pt-[50%]'/>
                         <div className='px-5'>
                         <Skeleton type="text" className="mt-5" width="30%" height={15}/>
