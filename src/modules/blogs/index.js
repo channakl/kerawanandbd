@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useFetchingDocs } from '@/hooks/useFetchingDocs';
 import Link from 'next/link';
 import { convertSecondsToFormattedDate } from '@/helpers/date';
+import { Skeleton } from '@mui/material';
 
 const InformasiDbd = () => {
     const propsLayout = {
@@ -15,10 +16,6 @@ const InformasiDbd = () => {
     const { data, loading } = useFetchingDocs({
         collection: 'blogs',
     });
-
-    useEffect(() => {
-        window.setLoaderVisibility(loading);
-    }, [loading]);
 
     return (
         <Layout {...propsLayout}>
@@ -33,7 +30,38 @@ const InformasiDbd = () => {
                 '2xl:grid-cols-4'
 
             )}>
-                
+                {loading && [1, 2, 3, 4].map(() => (
+                    // <div>
+                    //     <Skeleton width="100%" variant="rectangular" className='pt-[50%]'/>
+                    //     <div className='px-5'>
+                    //     <Skeleton type="text" className="mt-5" width="30%" height={15}/>
+                    //     <Skeleton type="text" height={30}/>
+                    //     <div className="mt-2">
+                    //         <Skeleton type="text" width="80%" height={20}/>
+                    //         <Skeleton type="text" width="97%" height={20}/>
+                    //         <Skeleton type="text" width="92%" height={20}/>
+                    //     </div>
+                    //     <div className="mt-2">
+                    //         <Skeleton className="ml-auto" type="text" width="40%" height={20}/>
+                    //     </div>
+                    //     </div>
+                    // </div>
+                    <div>
+                        <Skeleton width="100%" variant="rectangular" className='pt-[50%]'/>
+                        <div className='px-5'>
+                        <Skeleton type="text" className="mt-5" width="30%" height={15}/>
+                        <Skeleton type="text" height={30}/>
+                        <div className="mt-2">
+                            <Skeleton type="text" width="80%" height={20}/>
+                            <Skeleton type="text" width="97%" height={20}/>
+                            <Skeleton type="text" width="92%" height={20}/>
+                        </div>
+                        <div className="mt-4">
+                            <Skeleton className="ml-auto" type="text" width="35%" height={20}/>
+                        </div>
+                        </div>
+                    </div>
+                ))}
                 {data && data.map((blog) => (
                     <div class="blog-card group mb-3 sm:mb-0 cursor-pointer col-span-1 bg-white border border-gray-200 rounded-lg drop-shadow-sm overflow-hidden">
                         <div className='relative w-full pt-[50%] overflow-hidden'>
