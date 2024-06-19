@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import MapIcon from '@mui/icons-material/Map';
 import CoronavirusIcon from '@mui/icons-material/Coronavirus';
@@ -11,11 +11,12 @@ import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
 import CoronavirusOutlinedIcon from '@mui/icons-material/CoronavirusOutlined';
 import DangerIconOutlined from '@mui/icons-material/NearbyErrorOutlined';
 import NewspaperOutlined from '@mui/icons-material/NewspaperOutlined';
-import SidebarMobile from '@modules/layout/Sidebar/mobile';
 import Button from '@/components/Button';
 import { mergeClasses } from '@/helpers/className';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { useAccountContext } from '@/contexts/accountContext';
+import { KSH_STATUS } from '@root/src/helpers/constants';
 
 const iconEnum = {
     active: {
@@ -47,8 +48,10 @@ const menuList = [
     ]}, 
 ];
 
-const SidebarContent = () => {
+const SidebarContent = (props) => {
+    const { handleRegisterKSH } = props;
     const { data: session } = useSession();
+    const { kshStatus } = useAccountContext();
     const router = useRouter();
 
     const menuIsActive = (menuUrl) => router.pathname === menuUrl;
@@ -81,13 +84,13 @@ const SidebarContent = () => {
                 ))}
             </div>
             <div>
-                { session ? (
+                { session && (
                     <div>
-                        <div className='flex items-center gap-2'>
+                        <div className='flex items-center gap-2 mb-3'>
                             <Image
                                 src={session.user.image}
-                                width={40}
-                                height={40}
+                                width={45}
+                                height={45}
                                 className="rounded-full"
                             />
                             <div>
@@ -95,13 +98,15 @@ const SidebarContent = () => {
                                 <span className='block text-[13px] text-gray-400'>{session.user.email}</span>
                             </div>
                         </div>
-                        <Button className={mergeClasses('!bg-red-500 hover:!bg-red-600', '!p-2.5', 'mt-4')} onClick={signOut}>Sign out</Button>
-                    </div>
-                ) : (
-                    <div>
-                        <p className='font-bold'>Sign in</p>
-                        <p className='text-md font-medium text-gray-400 mb-3'>Experience the full features of this app by signing in</p>
-                        <Button onClick={() => signIn('google', { prompt: 'select_account' })}>Sign in</Button>
+                        {kshStatus === KSH_STATUS.NOT_REGISTERED && (
+                            <Button className={mergeClasses(
+                                '!bg-white border-2 border-red-500',
+                                'hover:!bg-gray-100 hover:text-red-600',
+                                '!text-red-600 text-md',
+                                'mt-2 !p-2.5 '
+                            )} onClick={handleRegisterKSH}>Daftar Sebagai KSH</Button>
+                        )} 
+                        <Button className={mergeClasses('!bg-red-500 hover:!bg-red-600', 'mt-1.5')} onClick={signOut}>Keluar Akun</Button>
                     </div>
                 )}
             </div>

@@ -1,31 +1,102 @@
-import React from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useSession, signIn, signOut } from "next-auth/react";
-import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import ApartmentIcon from '@mui/icons-material/Apartment';
-import MapIcon from '@mui/icons-material/Map';
-import CoronavirusIcon from '@mui/icons-material/Coronavirus';
-import DangerIcon from '@mui/icons-material/NearbyError';
-import Newspaper from '@mui/icons-material/Newspaper';
-import ApartmentOutlinedIcon from '@mui/icons-material/ApartmentOutlined';
-import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
-import CoronavirusOutlinedIcon from '@mui/icons-material/CoronavirusOutlined';
-import DangerIconOutlined from '@mui/icons-material/NearbyErrorOutlined';
-import NewspaperOutlined from '@mui/icons-material/NewspaperOutlined';
+import React, { useRef, useState } from 'react';
 import SidebarMobile from '@modules/layout/Sidebar/mobile';
 import Button from '@/components/Button';
-import { mergeClasses } from '@/helpers/className';
-import Image from 'next/image';
-import SidebarContent from './content';
+import SidebarContent from '@/modules/layout/Sidebar/content';
+import Modal from '@/components/Modal';
+import Input from '@/components/Input';
+import { useSession } from 'next-auth/react';
+import useAddDoc from '@/hooks/useAddDoc';
+import Cookies from 'js-cookie';
+import { useAccountContext } from '@/contexts/accountContext';
+import { KSH_STATUS } from '@root/src/helpers/constants';
 
 const Sidebar = () => {
+    const { data: session } = useSession();
+    const { updateKshStatus } = useAccountContext();
+    const [modalRegistrationOpen, setModalRegistrationOpen] = useState(false);
+    const { addDocument: register} = useAddDoc();
+    const [NIK, setNIK] = useState('');
+    const nameInputRef = useRef();
+    const nikInputRef = useRef();
+
+    const handleOpenRegistrationModal = () => {
+        setModalRegistrationOpen(true);
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        register({
+            collection: 'ksh_accounts',
+            docData: {
+                accepted: false,
+                confirmation_email_sent: false,
+                email: session.user.email,
+                name: nameInputRef.current.value,
+                nik: nikInputRef.current.value,
+            }, 
+        })
+        .then((res) => {
+            Cookies.remove('ksh_fetched');
+            updateKshStatus(KSH_STATUS.UNDER_REVIEW);
+            window.setLoaderVisibility(false);
+            window.showNotification({
+              message: 'Registrasi berhasil!',
+              type: 'info'
+            })
+            setModalRegistrationOpen(false);
+        })
+        .catch((e) => {
+            window.setLoaderVisibility(false);
+            console.log(e);
+            window.showNotification({
+                message: 'Submisi registrasi gagal dikirim!',
+                type: 'error'
+            })
+        })
+    };
+
+    const handleChangeNIK = (e) => {
+        setNIK(e.target.value.replace(/[^\d]/g, ''));
+    };
+
     return (
         <>
             <SidebarMobile />
             <nav className='hidden md:flex h-screen bg-white w-[390px] max-w-[33vw] pt-10 pb-4 px-4 text-gray-500 border-gray-200 border z-50 flex-col justify-between'>
-               <SidebarContent /> 
+               <SidebarContent handleRegisterKSH={handleOpenRegistrationModal} /> 
             </nav>
+            <Modal
+                title="Daftar Sebagai KSH"
+                description="Daftar sebagai perwakilan KSH (Kader Surabaya Hebat) untuk dapat mengirimkan laporan kasus baru di daerah Anda"
+                onClose={() => setModalRegistrationOpen(false)}
+                open={modalRegistrationOpen}
+            >
+                <form onSubmit={handleSubmit}>
+                    <Input 
+                        ref={nameInputRef}
+                        name="name"
+                        placeholder="Masukkan Nama Lengkap"
+                        label="Nama Lengkap"
+                        required
+                    />
+                    <Input 
+                        ref={nikInputRef}
+                        name="nik"
+                        placeholder="Masukkan NIK"
+                        label="NIK"
+                        className="mt-2"
+                        minLength={16}
+                        maxLength={16}
+                        min={16}
+                        max={16}
+                        onChange={handleChangeNIK}
+                        value={NIK}
+                        required
+                    />
+                    <Button className="mt-6" type="submit">Submit</Button>
+                    <p className='text-gray-400 text-md mt-2'>*Akun yang Anda buat akan menjalani proses review oleh tim kami yang mungkin memerlukan waktu beberapa saat. Anda akan menerima email konfirmasi setelah akun Anda disetujui dan siap untuk digunakan</p>
+                </form>
+            </Modal>
         </>
     )
 }

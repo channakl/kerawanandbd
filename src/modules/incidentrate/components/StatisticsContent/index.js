@@ -1,9 +1,11 @@
 import dynamic from 'next/dynamic';
 import { mergeClasses } from '@/helpers/className';
-import DataVisualizationBox from '@/components/DataVisualizationBox';
 import Button from '@/components/Button';
-import { useEffect, useRef, useState } from 'react';
+import DataVisualizationBox from '@/components/DataVisualizationBox';
+import { useEffect, useState } from 'react';
 import { useFetchingDocs } from '@/hooks/useFetchingDocs';
+import { useAccountContext } from '@/contexts/accountContext';
+import { KSH_STATUS } from '@/helpers/constants';
 
 const PieChart = dynamic(() => import('@/modules/incidentrate/components/PieChart'), { ssr: false });
 const LineChart = dynamic(() => import('@/modules/incidentrate/components/LineChart'), { ssr: false });
@@ -14,10 +16,10 @@ const StatisticsContent = (props) => {
     return null;
   }
 
+  const { kshStatus } = useAccountContext();
   const [fetchReportsData, { data: reportsData }] = useFetchingDocs({ lazyFetch: true });
   const [fetchLarvaeData, { data: larvaeData }] = useFetchingDocs({ lazyFetch: true });
   const [fields, setFields] = useState();
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (open && data) {
@@ -31,7 +33,6 @@ const StatisticsContent = (props) => {
           parentDocId: data.id,
           subCollection: 'mosquito_larvae'
         })
-      setLoading(true);
     }
   }, [open, data]);
 
@@ -76,7 +77,6 @@ const StatisticsContent = (props) => {
         age_13_to_24_cases: calculateCasesByAgeRange(13, 24),
         age_25_to_60_cases: calculateCasesByAgeRange(25, 60),
       })
-      setLoading(false);
     }
   }, [reportsData]);  
   
@@ -200,7 +200,15 @@ const StatisticsContent = (props) => {
           <LineChart data={lineChartDataLarvae}/>
         </DataVisualizationBox>
       </div>
-      <Button className={mergeClasses('!bg-red-600 hover:!bg-red-700', 'mt-8')} onClick={onReport}>Laporkan Kasus Baru</Button>
+      {kshStatus === KSH_STATUS.UNDER_REVIEW && (
+        <div>
+          <Button className={mergeClasses('!bg-red-500 hover:!bg-red-600', 'mt-8')} onClick={onReport} disabled>Laporkan Kasus Baru</Button>
+          <p className='w-full text-center text-md text-gray-700 mt-1'>*Akun Anda masih dalam proses review</p>
+        </div>
+      )}
+      {kshStatus === KSH_STATUS.REGISTERED && (
+        <Button className={mergeClasses('!bg-red-500 hover:!bg-red-600', 'mt-8')} onClick={onReport}>Laporkan Kasus Baru</Button>
+      )}
     </div>
   )
 };

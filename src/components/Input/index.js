@@ -1,14 +1,14 @@
 import { mergeClasses } from "@/helpers/className";
-import { forwardRef, useState } from "react";
+import { forwardRef } from "react";
 
 const Input = forwardRef((props, ref) => {
     const {
-        type = 'text', min, max, name, id, placeholder, value, label,
-        disabled = false, required = false, className: customClassName,
+        type = 'text', min, max, name, minLength, maxLength, id, placeholder, value, label,
+        disabled = false, required = false, className: customClassName, inputClassName, onChange = () => {}
     } = props;
     
     return (
-        <div>
+        <div className={customClassName}>
             {label && <label for={id} className="text-md">{label}</label>}
             <input
                 className={mergeClasses(
@@ -18,18 +18,22 @@ const Input = forwardRef((props, ref) => {
                     'outline-teal-500',
                     'text-md',
                     disabled && 'text-gray-400 cursor-not-allowed',
-                    customClassName
+                    inputClassName
                 )}
                 ref={ref}
                 type={type}
-                min="1"
+                min={min}
+                max={max}
+                minLength={minLength}
+                maxLength={maxLength}
                 id={id}
                 name={name}
                 value={value}
                 placeholder={placeholder}
                 disabled={disabled}
                 required={required}
-                autoComplete="false"
+                autoComplete="off"
+                onChange={onChange}
             />
         </div>
     );

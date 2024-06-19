@@ -4,6 +4,8 @@ import { FACEBOOK, GOOGLE } from '@/modules/login/helpers/constants';
 import { signIn } from 'next-auth/react';
 import Image from "next/image";
 import Head from "next/head";
+import { useEffect } from "react";
+import Cookies from "js-cookie";
 
 const enumSocialLogin = {
     [GOOGLE]: {
@@ -19,6 +21,10 @@ const enumSocialLogin = {
 };
 
 const Login = (props) => {
+    useEffect(() =>{
+        Cookies.remove('ksh_fetched');
+    }, []);
+
     return (
         <>
             <Head>

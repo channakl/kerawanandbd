@@ -5,7 +5,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import SidebarContent from './content';
 
 const SidebarMobile = (props) => {
-
     const [open, setOpen] = useState(false);
     const toggleBurgerMenu = () => setOpen(!open);
 

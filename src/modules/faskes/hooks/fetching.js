@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { db } from "@/helpers/firebaseConfig";
+import { db } from "@root/firebaseConfig";
 import { firestoreErrorHandler } from "@/helpers/firestore";
 import { collection, getDocs } from "firebase/firestore";
 

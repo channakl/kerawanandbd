@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { db } from "@/helpers/firebaseConfig";
+import { db } from "@root/firebaseConfig";
 import { collection, doc, addDoc } from "firebase/firestore";
 
 const useAddDoc = () => {

@@ -1,12 +1,7 @@
 import dynamic from 'next/dynamic';
 import { mergeClasses } from '@/helpers/className';
-import DataVisualizationBox from '@/components/DataVisualizationBox';
 import CloseIcon from '@mui/icons-material/Close';
-import Button from '@/components/Button';
-import Input from '@/components/Input';
 import { useRef, useState } from 'react';
-import MaleIcon from '@mui/icons-material/Male';
-import FemaleIcon from '@mui/icons-material/Female';
 import { useSession } from 'next-auth/react';
 import StatisticsContent from '@/modules/incidentrate/components/StatisticsContent';
 import ReportContent from '@/modules/incidentrate/components/ReportContent';
@@ -42,12 +37,6 @@ const DrawerInfo = (props) => {
     };
 
     const handleSubmitReport = (e, value) => {
-      e.preventDefault();
-      window.showNotification({
-        message: 'Laporan berhasil dikirim!',
-        type: 'info'
-      })
-      return;
       e.preventDefault();
       window.setLoaderVisibility(true);
       submitReport({

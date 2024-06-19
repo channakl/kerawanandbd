@@ -17,7 +17,6 @@ const MobileEdge = (props) => {
     
     const dragStart = () => {
         setIsDragging(true);
-        console.log(pullerRef.current.offsetHeight)
     };
     const dragging = (e) => {
         if (isDragging) {

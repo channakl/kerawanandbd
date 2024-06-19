@@ -3,11 +3,12 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: [
-    'lh3.googleusercontent.com',
-    'developers.google.com',
-    'upload.wikimedia.org',
-    'firebasestorage.googleapis.com'
-  ],
+      'lh3.googleusercontent.com',
+      'developers.google.com',
+      'upload.wikimedia.org',
+      'firebasestorage.googleapis.com',
+      'platform-lookaside.fbsbx.com'
+    ],
   },
   compress: true,
   matcher: ["/:pages*"],

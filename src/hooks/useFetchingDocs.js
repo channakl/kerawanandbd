@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
-import { db } from "@/helpers/firebaseConfig";
+import { db } from "@root/firebaseConfig";
 import { firestoreErrorHandler } from "@/helpers/firestore";
-import { collection, doc, getDocs } from "firebase/firestore";
+import { collection, doc, getDocs, query, where } from "firebase/firestore";
 
 export const useFetchingDocs = (initialOptions = { lazyFetch: false }) => {
     const [data, setData] = useState(null);
@@ -25,7 +25,15 @@ export const useFetchingDocs = (initialOptions = { lazyFetch: false }) => {
                     throw new Error("Collection path is not provided in options.");
                 }
 
-                const docsSnap = await getDocs(collectionRef);
+                let q = collectionRef;
+                if (options.where) {
+                    const whereClauses = options.where;
+                    whereClauses.forEach(([field, operator, value]) => {
+                        q = query(q, where(field, operator, value));
+                    });
+                }
+
+                const docsSnap = await getDocs(q);
                 const docsData = docsSnap.docs.map((snap) => ({ id: snap.id, ...snap.data() }));
                 setData(docsData);
                 setError(null);

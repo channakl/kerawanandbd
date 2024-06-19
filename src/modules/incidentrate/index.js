@@ -1,12 +1,13 @@
 import dynamic from 'next/dynamic';
 import Layout from '@/modules/layout';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import DrawerInfo from '@/modules/incidentrate/components/InfoDrawer';
-import rwGeoJson from '@/components/Map/geojson/rw.json';
+import rwGeoJson from '@/geojsons/rw.json';
 import { VULNERABILITY_LEVELS } from '@/modules/incidentrate/helpers/constants';
 import { useFetchingDocs } from '@/hooks/useFetchingDocs';
 import useCollectionCount from '@/hooks/useCollectionCount';
-import { classifyPopulationDensity, classifyDensity, discretize } from '@/modules/incidentrate/helpers/calculation';
+import { classifyByTresholdRange, discretize } from '@/modules/incidentrate/helpers/calculation';
+import { POPULATION_DENSITY_TRESHOLD, DENSITY_TRESHOLD } from '@/modules/incidentrate/helpers/constants';
 
 const Map = dynamic(() => import('@/components/Map'), { ssr: false });
 
@@ -18,7 +19,6 @@ const IncidentRate = () => {
   const [sideInfoOpen, setSideInfoOpen] = useState(false);
   const [sideInfoData, setSideInfoData] = useState();
   const [loading, setLoading] = useState(true);
-  const [riskData, setRiskData] = useState();
   const [riskLevelList, setRiskLevelList] = useState([]);
 
   const { data: listDataRw, loading: loadingFetchingDataRw } = useFetchingDocs({
@@ -120,8 +120,14 @@ const IncidentRate = () => {
                   const totalCaseClass = discretize(totalCaseMetricRange);
                   const healthcareDistClass = discretize(healthcareDistMetricRange);
                   const larvaePercentageClass = discretize(larvaePercentageMetricRange, { reverse: true });
-                  const populationDensityClass = classifyPopulationDensity(populationDensityValue);
-                  const densityClass = classifyDensity(densityValue);
+                  const populationDensityClass = classifyByTresholdRange(populationDensityValue, {
+                    lowestTreshold: POPULATION_DENSITY_TRESHOLD.LOW,
+                    middleTreshold: POPULATION_DENSITY_TRESHOLD.MEDIUM
+                  });
+                  const densityClass = classifyByTresholdRange(densityValue, {
+                    lowestTreshold: DENSITY_TRESHOLD.LOW,
+                    middleTreshold: DENSITY_TRESHOLD.MEDIUM
+                  });
 
                   const finalScoring = (0.2*totalCaseClass) + (0.1*healthcareDistClass) + (0.3*larvaePercentageClass) + (0.25*populationDensityClass) + (0.15*densityClass);
                   return { rw: rwRiskData.id, score: finalScoring };

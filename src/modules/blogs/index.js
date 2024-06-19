@@ -31,21 +31,6 @@ const InformasiDbd = () => {
 
             )}>
                 {loading && [1, 2, 3, 4].map(() => (
-                    // <div>
-                    //     <Skeleton width="100%" variant="rectangular" className='pt-[50%]'/>
-                    //     <div className='px-5'>
-                    //     <Skeleton type="text" className="mt-5" width="30%" height={15}/>
-                    //     <Skeleton type="text" height={30}/>
-                    //     <div className="mt-2">
-                    //         <Skeleton type="text" width="80%" height={20}/>
-                    //         <Skeleton type="text" width="97%" height={20}/>
-                    //         <Skeleton type="text" width="92%" height={20}/>
-                    //     </div>
-                    //     <div className="mt-2">
-                    //         <Skeleton className="ml-auto" type="text" width="40%" height={20}/>
-                    //     </div>
-                    //     </div>
-                    // </div>
                     <div className="bg-white border border-gray-200 rounded-lg drop-shadow-sm overflow-hidden pb-6 mb-3 sm:mb-0">
                         <Skeleton width="100%" variant="rectangular" className='pt-[50%]'/>
                         <div className='px-5 mt-5'>

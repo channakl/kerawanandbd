@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { db } from "@/helpers/firebaseConfig";
+import { db } from "@root/firebaseConfig";
 import { collection, doc, getDocs } from "firebase/firestore";
 
 const useCollectionCount = (initialOptions = {}) => {
