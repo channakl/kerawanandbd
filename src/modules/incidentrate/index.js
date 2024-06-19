@@ -6,8 +6,7 @@ import rwGeoJson from '@/components/Map/geojson/rw.json';
 import { VULNERABILITY_LEVELS } from '@/modules/incidentrate/helpers/constants';
 import { useFetchingDocs } from '@/hooks/useFetchingDocs';
 import useCollectionCount from '@/hooks/useCollectionCount';
-import { classifyPopulationDensity, discretize } from '@/modules/incidentrate/helpers/calculation';
-import { classifyDensity, discretize } from '@/modules/incidentrate/helpers/calculation';
+import { classifyPopulationDensity, classifyDensity, discretize } from '@/modules/incidentrate/helpers/calculation';
 
 const Map = dynamic(() => import('@/components/Map'), { ssr: false });
 
