@@ -123,7 +123,7 @@ const IncidentRate = () => {
                   const populationDensityClass = classifyPopulationDensity(populationDensityValue);
                   const densityClass = classifyDensity(densityValue);
 
-                  const finalScoring = totalCaseClass + healthcareDistClass + larvaePercentageClass + populationDensityClass + densityClass;
+                  const finalScoring = (0.2*totalCaseClass) + (0.1*healthcareDistClass) + (0.3*larvaePercentageClass) + (0.25*populationDensityClass) + (0.15*densityClass);
                   return { rw: rwRiskData.id, score: finalScoring };
                 })
                 
