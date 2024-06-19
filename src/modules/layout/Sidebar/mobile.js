@@ -5,6 +5,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import SidebarContent from './content';
 
 const SidebarMobile = (props) => {
+    const { handleRegisterKSH } = props;
     const [open, setOpen] = useState(false);
     const toggleBurgerMenu = () => setOpen(!open);
 
@@ -33,7 +34,10 @@ const SidebarMobile = (props) => {
                 'flex flex-col justify-between',
                 `${!open && '-translate-x-[100%] drop-shadow-none'} transition-transform !duration-500`
             )}>
-                <SidebarContent/>
+                <SidebarContent handleRegisterKSH={() => {
+                    setOpen(false);
+                    handleRegisterKSH();
+                }}/>
             </nav>
         </div>
   )

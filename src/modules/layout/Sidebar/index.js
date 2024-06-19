@@ -61,7 +61,7 @@ const Sidebar = () => {
 
     return (
         <>
-            <SidebarMobile />
+            <SidebarMobile handleRegisterKSH={handleOpenRegistrationModal} />
             <nav className='hidden md:flex h-screen bg-white w-[390px] max-w-[33vw] pt-10 pb-4 px-4 text-gray-500 border-gray-200 border z-50 flex-col justify-between'>
                <SidebarContent handleRegisterKSH={handleOpenRegistrationModal} /> 
             </nav>
