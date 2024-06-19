@@ -18,9 +18,15 @@ export const RISK_METRICS = {
     HEALTHCARE_DISTRIBUTION: 'healthcare_distribution',
     LARVAE_PERCENTAGE: 'larvae_percentage',
     POPULATION_DENSITY: 'population_density',
+    DENSITY: 'density'
 };
 
 export const POPULATION_DENSITY_TRESHOLD = {
     LOW: 150,
     MEDIUM: 200
+};
+
+export const DENSITY_TRESHOLD = {
+    LOW: 40,
+    MEDIUM: 60
 };

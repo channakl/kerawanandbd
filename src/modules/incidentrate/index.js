@@ -7,6 +7,7 @@ import { VULNERABILITY_LEVELS } from '@/modules/incidentrate/helpers/constants';
 import { useFetchingDocs } from '@/hooks/useFetchingDocs';
 import useCollectionCount from '@/hooks/useCollectionCount';
 import { classifyPopulationDensity, discretize } from '@/modules/incidentrate/helpers/calculation';
+import { classifyDensity, discretize } from '@/modules/incidentrate/helpers/calculation';
 
 const Map = dynamic(() => import('@/components/Map'), { ssr: false });
 
@@ -115,13 +116,15 @@ const IncidentRate = () => {
                   const healthcareDistMetricRange = getMetricRange(riskDataList, rwRiskData.id, (rw) => rw.initial_reports.healthcare_dist);
                   const larvaePercentageMetricRange = getMetricRange(riskDataList, rwRiskData.id, (rw) => rw.initial_reports.larvae_percentage);
                   const populationDensityValue = rwRiskData.initial_reports.population_density;
+                  const densityValue = rwRiskData.initial_reports.density;
 
                   const totalCaseClass = discretize(totalCaseMetricRange);
                   const healthcareDistClass = discretize(healthcareDistMetricRange);
                   const larvaePercentageClass = discretize(larvaePercentageMetricRange, { reverse: true });
                   const populationDensityClass = classifyPopulationDensity(populationDensityValue);
+                  const densityClass = classifyDensity(densityValue);
 
-                  const finalScoring = totalCaseClass + healthcareDistClass + larvaePercentageClass + populationDensityClass;
+                  const finalScoring = totalCaseClass + healthcareDistClass + larvaePercentageClass + populationDensityClass + densityClass;
                   return { rw: rwRiskData.id, score: finalScoring };
                 })
                 
